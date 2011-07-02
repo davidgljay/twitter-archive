@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @hashtag.name %>
+</p>
+
+<p>
+  <b>Numtweets:</b>
+  <%= @hashtag.numtweets %>
+</p>
+
+<p>
+  <b>Archive:</b>
+  <%= @hashtag.archive %>
+</p>
+
+
+<%= link_to 'Edit', edit_hashtag_path(@hashtag) %> |
+<%= link_to 'Back', hashtags_path %>
