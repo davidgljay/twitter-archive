@@ -7,6 +7,7 @@ class CreateHashtags < ActiveRecord::Migration
 
       t.timestamps
     end
+     add_index :hashtags, :name
   end
 
   def self.down

@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(:version => 20110702002147) do
     t.datetime "updated_at"
   end
 
+  add_index "hashtags", ["name"], :name => "index_hashtags_on_name"
+
   create_table "links", :force => true do |t|
     t.integer  "tweet_id"
     t.integer  "hashtag_id"
