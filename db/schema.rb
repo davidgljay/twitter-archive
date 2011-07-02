@@ -32,11 +32,14 @@ ActiveRecord::Schema.define(:version => 20110702002147) do
   add_index "links", ["tweet_id"], :name => "index_links_on_tweet_id"
 
   create_table "tweets", :force => true do |t|
+    t.integer  "t_id"
     t.string   "text"
     t.string   "user"
     t.datetime "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "tweets", ["t_id"], :name => "index_tweets_on_t_id"
 
 end
