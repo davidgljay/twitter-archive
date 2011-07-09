@@ -80,4 +80,22 @@ class HashtagsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def sync
+  # GET /hashtags/sync
+    synclist = Hashtag.all.delete_if{|tag| tag.archive == false}
+    secondaries = Array.new
+    synclist.each do |tag|
+       tag.tweets.each do |tweet|
+         secondaries << tweet.hashtags
+       end
+    end
+    synclist << secondaries
+    synclist.flatten!.uniq!.each do |tag|
+       tag.get_tweets
+    end
+  end
+
+              
+
 end

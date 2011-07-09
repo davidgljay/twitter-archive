@@ -1,5 +1,6 @@
 TwitterArchive::Application.routes.draw do
   resources :hashtags
+  match '/sync',    :to => 'hashtags#sync'
 
   resources :tweets
 

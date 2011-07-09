@@ -3,7 +3,7 @@ class CreateHashtags < ActiveRecord::Migration
     create_table :hashtags do |t|
       t.string :name
       t.integer :numtweets
-      t.boolean :archive
+      t.boolean :archive, :default => false
 
       t.timestamps
     end
