@@ -1,5 +1,3 @@
-<h1>Listing hashtags</h1>
-
 <table>
   <tr>
     <th>Name</th>
@@ -9,19 +7,24 @@
     <th></th>
     <th></th>
   </tr>
-
+<h2><p align = "right"><%= link_to 'New Hashtag', new_hashtag_path %></p></h2>
 <% @hashtags.each do |hashtag| %>
   <tr>
-    <td><%= hashtag.name %></td>
+    <td><%= link_to hashtag.name, hashtag %></td>
     <td><%= hashtag.numtweets %></td>
-    <td><%= hashtag.archive %></td>
-    <td><%= link_to 'Show', hashtag %></td>
-    <td><%= link_to 'Edit', edit_hashtag_path(hashtag) %></td>
-    <td><%= link_to 'Destroy', hashtag, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td>
+     <% if hashtag.archive? %>
+        <div>Currently Archiving</div>
+     <% else %>
+       <%= form_for hashtag do |f| %>
+         <div><%= f.hidden_field :archive, :value => '1' %></div>
+         <div class="actions"><%= f.submit "Archive" %></div>
+      <% end %>   
+     <% end %>
+</td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Hashtag', new_hashtag_path %>

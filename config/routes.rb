@@ -1,8 +1,15 @@
 TwitterArchive::Application.routes.draw do
   resources :hashtags
   match '/sync',    :to => 'hashtags#sync'
+  match '/hashtags',:to => 'hashtags#index'  
 
   resources :tweets
+
+root :to => 'hashtags#index'
+  match '/contact',  :to => 'pages#contact'
+  match '/about',    :to => 'pages#about'
+  match '/help',     :to => 'pages#help'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

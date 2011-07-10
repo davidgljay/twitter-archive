@@ -2,13 +2,21 @@
 <html>
 <head>
   <title>TwitterArchive</title>
-  <%= stylesheet_link_tag :all %>
   <%= javascript_include_tag :defaults %>
+  <%= render 'layouts/stylesheets' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
-<%= yield %>
-
+    <div class="container">
+    <%= render 'layouts/header' %> 
+    <section class="round">
+      <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+      <%= yield %>
+    </section>
+    <%= render 'layouts/footer' %>
+    <%= debug(params) if Rails.env.development? %>
+    </div>
 </body>
 </html>

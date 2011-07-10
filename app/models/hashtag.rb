@@ -12,6 +12,8 @@ has_many :tweets, :through => :links, :source => :tweet
 validates :name, :presence => true,
                       :uniqueness => true
 
+default_scope :order => 'hashtags.numtweets DESC'
+
 #Get tweets for a given hashtag.
   def get_tweets 
    Twitter::Search.new.containing(self.name).each do |tweet|
@@ -32,5 +34,11 @@ validates :name, :presence => true,
      end
      hash_matrix
    end     
+
+#Start archiving a hashtag. Later on I'll create an unarchive feature for admins.
+#   def archive
+#     self.archive = true
+#     self.save
+#   end
 
 end
