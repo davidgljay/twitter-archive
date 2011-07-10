@@ -32,13 +32,11 @@ default_scope :order => 'hashtags.numtweets DESC'
      map_a.uniq.each do |tag|
          hash_matrix << [tag, map_a.count(tag)]
      end
-     hash_matrix
+     hash_matrix.sort_by{|hash| hash[1]}.reverse
    end     
 
-#Start archiving a hashtag. Later on I'll create an unarchive feature for admins.
-#   def archive
-#     self.archive = true
-#     self.save
-#   end
+   def related_hashtag_cloud
+     get_related_hashtags.delete_if{|hash| hash[1] == 1}
+   end
 
 end

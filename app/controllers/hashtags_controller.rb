@@ -14,6 +14,7 @@ class HashtagsController < ApplicationController
   # GET /hashtags/1.xml
   def show
     @hashtag = Hashtag.find(params[:id])
+    @related_hashtags = @hashtag.get_related_hashtags
 
     respond_to do |format|
       format.html # show.html.erb

@@ -1,18 +1,37 @@
 <p>
-  <b>Name:</b>
-  <%= @hashtag.name %>
+  <h1><%= @hashtag.name %></h1>
 </p>
 
 <p>
-  <b>Numtweets:</b>
+  <b>Archived tweets:</b>
   <%= @hashtag.numtweets %>
 </p>
 
 <p>
-  <b>Archive:</b>
+  <b>Archiving:</b>
   <%= @hashtag.archive %>
 </p>
 
+  <div id="tcdiv"></div>
+    <script type="text/javascript">
+      google.load("visualization", "1");
+      google.setOnLoadCallback(draw);
+      function draw() {
+        data = new google.visualization.DataTable();
+        data.addColumn('string', 'Label');
+        data.addColumn('number', 'Value');
+        data.addColumn('string', 'Link');
+        data.addRows(<%= @related_hashtags.count %>);
+        <% @related_hashtags.each_index do |tag|%>
+        data.setValue(<%= tag %>, 0, '<%= @related_hashtags[tag][0] %>');
+        data.setValue(<%= tag %>, 1, <%= @related_hashtags[tag][1] %>);
+        data.setValue(<%= tag %>, 2, '<%= hashtag_path(Hashtag.find_by_name(@related_hashtags[tag][0])) %>');
+        <% end %>
+        var outputDiv = document.getElementById('tcdiv');
+        var tc = new TermCloud(outputDiv);
+        tc.draw(data, null);
+      }
+    </script>
 
 <%= link_to 'Edit', edit_hashtag_path(@hashtag) %> |
 <%= link_to 'Back', hashtags_path %>
