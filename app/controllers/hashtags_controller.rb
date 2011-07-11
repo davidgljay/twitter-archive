@@ -95,6 +95,7 @@ class HashtagsController < ApplicationController
     synclist.flatten!.uniq!.each do |tag|
        tag.get_tweets
     end
+    redirect_to root_path
   end
 
               
