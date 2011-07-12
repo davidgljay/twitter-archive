@@ -6,10 +6,15 @@
   <b>Archived tweets:</b>
   <%= @hashtag.numtweets %>
 </p>
-
 <p>
-  <b>Archiving:</b>
-  <%= @hashtag.archive %>
+    <% if @hashtag.archive? %>
+        Currently Archiving
+     <% else %>
+       <%= form_for @hashtag do |f| %>
+         <div><%= f.hidden_field :archive, :value => '1' %></div>
+         <div class="actions"><%= f.submit "Archive" %></div>
+      <% end %>   
+     <% end %>
 </p>
 
   <div id="tcdiv"></div>

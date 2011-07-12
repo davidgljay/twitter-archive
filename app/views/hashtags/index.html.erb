@@ -8,15 +8,14 @@
     <th></th>
   </tr>
 <h2><p align = "right"><%= link_to 'New Hashtag', new_hashtag_path %></p></h2>
-<% @hashtags.each do |hashtag| %>
+<% @hashtags.each do |tag| %>
   <tr>
-    <td><%= link_to hashtag.name, hashtag %></td>
-    <td><%= hashtag.numtweets %></td>
-    <td>
-     <% if hashtag.archive? %>
+    <td><%= link_to tag.name, tag %></td>
+    <td><%= tag.numtweets %></td>
+    <td>    <% if tag.archive? %>
         <div>Currently Archiving</div>
      <% else %>
-       <%= form_for hashtag do |f| %>
+       <%= form_for tag do |f| %>
          <div><%= f.hidden_field :archive, :value => '1' %></div>
          <div class="actions"><%= f.submit "Archive" %></div>
       <% end %>   

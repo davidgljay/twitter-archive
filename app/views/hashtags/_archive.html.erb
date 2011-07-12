@@ -1,0 +1,9 @@
+     <% if tag.archive? %>
+        <div>Currently Archiving</div>
+     <% else %>
+       <%= form_for tag do |f| %>
+         <div><%= f.hidden_field :archive, :value => '1' %></div>
+         <div class="actions"><%= f.submit "Archive" %></div>
+      <% end %>   
+     <% end %>
+
