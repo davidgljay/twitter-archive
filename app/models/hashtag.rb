@@ -16,7 +16,7 @@ default_scope :order => 'hashtags.numtweets DESC'
 
 #Get tweets for a given hashtag.
   def get_tweets 
-   Twitter::Search.new.containing(self.name).each do |tweet|
+   Twitter::Search.new.containing(self.name).per_page(100).each do |tweet|
      #Can I add location data here?
      Tweet.create(:t_id => tweet.id, :text => tweet.text, :user => tweet.from_user, :timestamp => tweet.created_at).derive_hashtags if Tweet.find_by_t_id(tweet.id.to_s).nil?
      self.numtweets = self.tweets.count
