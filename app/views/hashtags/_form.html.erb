@@ -1,4 +1,4 @@
-<%= form_for(@hashtag) do |f| %>
+<%= form_for(@hashtag) do |f| :url = { %>
   <% if @hashtag.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@hashtag.errors.count, "error") %> prohibited this hashtag from being saved:</h2>
