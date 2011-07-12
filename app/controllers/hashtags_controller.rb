@@ -84,15 +84,15 @@ class HashtagsController < ApplicationController
 
   def sync
   # GET /hashtags/sync
-    synclist = Hashtag.all.delete_if{|tag| tag.archive == false}
+    @synclist = Hashtag.all.delete_if{|tag| tag.archive == false}
     secondaries = Array.new
-    synclist.each do |tag|
+    @synclist.each do |tag|
        tag.tweets.each do |tweet|
          secondaries << tweet.hashtags
        end
     end
-    synclist << secondaries
-    synclist.flatten!.uniq!.each do |tag|
+    @synclist << secondaries
+    @synclist.flatten!.uniq!.each do |tag|
        tag.get_tweets
     end
     redirect_to root_path
