@@ -20,6 +20,7 @@
 </tr>
 </table>
 <p>
+<% unless @related_hashtags.count == 0 %>
 <h3>Related Hashtags</h3> 
   <div id="tcdiv"></div>
     <script type="text/javascript">
@@ -42,6 +43,7 @@
       }
     </script>
 <br>
+<% end %>
 <br>
 <h3>Recent Tweets</h3>
 <% @tweets.each do |t| %>

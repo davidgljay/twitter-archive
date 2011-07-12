@@ -27,7 +27,7 @@ default_scope :order => 'hashtags.numtweets DESC'
 # Create an array of related hashtags.
    def get_related_hashtags
      map_a = self.tweets.map{|tweet| tweet.hashtags.map{|hash| hash.name}}
-     map_a.flatten!.delete_if{|tag| tag == self.name}
+     map_a.flatten!.delete_if{|tag| tag == self.name} unless map_a.count == 0
      hash_matrix = Array.new
      map_a.uniq.each do |tag|
          hash_matrix << [tag, map_a.count(tag)]
