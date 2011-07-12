@@ -1,12 +1,13 @@
-<p>
+<table>
+  <tr>
+  <td>
   <h1><%= @hashtag.name %></h1>
-</p>
-
-<p>
+  </td>
+  <td>
   <b>Archived tweets:</b>
   <%= @hashtag.numtweets %>
-</p>
-<p>
+ </td>
+<td>
     <% if @hashtag.archive? %>
         Currently Archiving
      <% else %>
@@ -15,8 +16,11 @@
          <div class="actions"><%= f.submit "Archive" %></div>
       <% end %>   
      <% end %>
-</p>
-
+</td>
+</tr>
+</table>
+<p>
+<h3>Related Hashtags</h3> 
   <div id="tcdiv"></div>
     <script type="text/javascript">
       google.load("visualization", "1");
@@ -37,6 +41,16 @@
         tc.draw(data, null);
       }
     </script>
-
-<%= link_to 'Edit', edit_hashtag_path(@hashtag) %> |
+<br>
+<br>
+<h3>Recent Tweets</h3>
+<% @tweets.each do |t| %>
+<b>@<%= t.user %></b>
+</br>
+<%= t.text %>
+</br>
+<em><%= t.timestamp %></em>
+</br>
+</br>
+<% end %>
 <%= link_to 'Back', hashtags_path %>

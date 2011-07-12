@@ -14,8 +14,15 @@ class HashtagsController < ApplicationController
   # GET /hashtags/1.xml
   def show
     @hashtag = Hashtag.find(params[:id])
+    if @hashtag.get_related_hashtags.nil?
+       @hashtag.get_tweets
+    end
     @related_hashtags = @hashtag.get_related_hashtags
-
+    if @hashtag.tweets.count > 20
+       @tweets = @hashtag.tweets.drop(@hashtag.tweets.count - 20).reverse!
+       else
+       @tweets = @hashtag.tweets.reverse! 
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @hashtag }
@@ -34,9 +41,9 @@ class HashtagsController < ApplicationController
   end
 
   # GET /hashtags/1/edit
-  def edit
-    @hashtag = Hashtag.find(params[:id])
-  end
+  #def edit
+  #  @hashtag = Hashtag.find(params[:id])
+  #end
 
   # POST /hashtags
   # POST /hashtags.xml
