@@ -18,7 +18,9 @@ validates :timestamp, :presence => true
    self.text.split(' ').each do |word|
    #If the word starts with '#'
       word.downcase!
-      if word[0] == 35
+      if word[0] == '#'
+      ## Something funky about my local build makes this:
+      #if word[0] == 35
       #Create a hashtag, and at the same time test to see if it already exists
          if self.hashtags.create(:name => word, :numtweets => 1).id.nil? 
            unless self.hashtags.find_by_name(word)
