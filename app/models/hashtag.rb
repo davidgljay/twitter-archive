@@ -37,7 +37,8 @@ default_scope :order => 'hashtags.numtweets DESC'
 
    def related_hashtag_cloud
      cloud = get_related_hashtags
-     cloud.reverse.drop(cloud.count - 30).reverse
+     cloud.reverse.drop(cloud.count - 30).reverse if cloud.count > 30
+     cloud
    end
 
 end

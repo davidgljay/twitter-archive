@@ -16,9 +16,9 @@ class HashtagsController < ApplicationController
     @hashtag = Hashtag.find(params[:id])
     @related_hashtags = @hashtag.related_hashtag_cloud
     if @hashtag.tweets.count > 20
-       @tweets = @hashtag.tweets.drop(@hashtag.tweets.count - 20).reverse!
+       @tweets = @hashtag.tweets.reverse.drop(@hashtag.tweets.count - 20).reverse!
        else
-       @tweets = @hashtag.tweets.reverse! 
+       @tweets = @hashtag.tweets 
     end
     respond_to do |format|
       format.html # show.html.erb
