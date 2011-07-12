@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110702002147) do
     t.string   "t_id"
     t.string   "text"
     t.string   "user"
-    t.datetime "timestamp"
+    t.string   "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

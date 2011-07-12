@@ -4,7 +4,7 @@ class CreateTweets < ActiveRecord::Migration
       t.string :t_id
       t.string :text
       t.string :user
-      t.timestamp :timestamp
+      t.string :timestamp
 
       t.timestamps
     end
