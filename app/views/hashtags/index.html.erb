@@ -1,4 +1,8 @@
+<div class="section">
 <table>
+  <tr>
+  <td><h3>Click on a hashtag to get started!</h3></td>
+  </tr>
   <tr>
     <th>Name</th>
     <th>Numtweets</th>
@@ -9,6 +13,7 @@
   </tr>
 <h2><p align = "right"><%= link_to 'New Hashtag', new_hashtag_path %></p></h2>
 <% @hashtags.each do |tag| %>
+
   <tr>
     <td><%= link_to tag.name, tag %></td>
     <td><%= tag.numtweets %></td>
@@ -26,4 +31,4 @@
 </table>
 
 <br />
-
+</div>

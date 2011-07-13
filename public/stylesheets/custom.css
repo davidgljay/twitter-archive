@@ -3,7 +3,7 @@ container {
 }
 
 body {
-  background: #cff;
+  background: #f1f1f1;
 }
 
 header {
@@ -19,7 +19,7 @@ section {
   margin-top: 1em;
   font-size: 120%;
   padding: 20px;
-  background: #fff;
+  background: #f1f1f1;
 }
 
 section h1 {
@@ -198,6 +198,16 @@ ul.users {
 
 .users li {
   list-style: none;
+}
+
+/*Word Cloud*/
+
+div.section {
+  background: #fff;
+  padding: 5px;
+  -moz-border-radius:    5px;
+  -webkit-border-radius: 5px;
+  border-radius:         5px;
 }
 
 /*Microposts*/

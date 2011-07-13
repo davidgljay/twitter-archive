@@ -1,3 +1,4 @@
+<div class="section">
 <table>
   <tr>
   <td>
@@ -19,10 +20,11 @@
 </td>
 </tr>
 </table>
+</div>
 <p>
 <% unless @related_hashtags.count == 0 %>
 <h3>Related Hashtags</h3> 
-  <div id="tcdiv"></div>
+  <div id="tcdiv" class="section">
     <script type="text/javascript">
       google.load("visualization", "1");
       google.setOnLoadCallback(draw);
@@ -42,10 +44,12 @@
         tc.draw(data, null);
       }
     </script>
+</div>
 <br>
 <% end %>
 <br>
 <h3>Recent Tweets</h3>
+<div class="section">
 <% @tweets.each do |t| %>
 <b>@<%= t.user %></b>
 </br>
@@ -55,4 +59,5 @@
 </br>
 </br>
 <% end %>
+</div>
 <%= link_to 'Back', hashtags_path %>
