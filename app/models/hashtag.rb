@@ -35,9 +35,12 @@ default_scope :order => 'hashtags.numtweets DESC'
      hash_matrix.sort_by{|hash| hash[1]}.reverse
    end     
 
+#Trim this for the wordcloud. I'm keeping this seperate in case we want the full array at some point.
    def related_hashtag_cloud
      cloud = get_related_hashtags
-     cloud.reverse.drop(cloud.count - 30).reverse if cloud.count > 30
+     #Get rid of the ones that only intersect once.
+     cloud.delete_if(|tag| tag[1] == 1)
+     cloud = cloud.reverse.drop(cloud.count - 30).reverse if cloud.count > 30
      cloud
    end
 
