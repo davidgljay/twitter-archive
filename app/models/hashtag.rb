@@ -39,7 +39,7 @@ default_scope :order => 'hashtags.numtweets DESC'
    def related_hashtag_cloud
      cloud = get_related_hashtags
      #Get rid of the ones that only intersect once.
-     cloud.delete_if(|tag| tag[1] == 1)
+     cloud.delete_if{|tag| tag[1] == 1}
      cloud = cloud.reverse.drop(cloud.count - 30).reverse if cloud.count > 30
      cloud
    end
