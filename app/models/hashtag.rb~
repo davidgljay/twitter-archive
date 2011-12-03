@@ -67,9 +67,9 @@ before_save :fix_numtweets
      hash_matrix = Array.new
      map_a.uniq.each do |tag|
      if tag.numtweets > numtweets
-        intersect = map_a.count(tag)*100/numtweets
+        intersect = (map_a.count(tag)*100)/numtweets
      else
-        intersect = map_a.count(tag)*100/tag.numtweets
+        intersect = (map_a.count(tag)*100)/tag.numtweets
      end
          hash_matrix << [tag.name, map_a.count(tag), tag.numtweets, tag, intersect]
      end

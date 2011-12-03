@@ -73,7 +73,7 @@ before_save :fix_numtweets
      end
          hash_matrix << [tag.name, map_a.count(tag), tag.numtweets, tag, intersect]
      end
-     hash_matrix.sort_by{|hash| hash[4]}.reverse
+     hash_matrix.sort_by{|hash| hash[4]}.reverse.delete_if{|hash| hash[2] < 50}
    end     
 
 #Trim this for the wordcloud. I'm keeping this seperate in case we want the full array at some point.
