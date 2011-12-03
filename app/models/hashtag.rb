@@ -23,8 +23,8 @@ before_save :fix_numtweets
   def get_tweets 
    search_tweets.each do |tweet|
      #Can I add location data here?
-     if Tweet.find_by_t_id(tweet.id).nil?
-       t = Tweet.new(:t_id => tweet.id, :text => tweet.text, :user => tweet.from_user, :timestamp => tweet.created_at)
+     if Tweet.find_by_t_id(tweet.id.to_s).nil?
+       t = Tweet.new(:t_id => tweet.id.to_s, :text => tweet.text, :user => tweet.from_user, :timestamp => tweet.created_at)
        t.save
      end
    end
