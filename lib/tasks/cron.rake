@@ -12,5 +12,6 @@ task :cron => :environment do
     @synclist.flatten!.uniq!.each do |tag|
        tag.delay.get_tweets
     end
+    Hashtag.new.delay.update_all_numtweets
   end
 end

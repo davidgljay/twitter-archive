@@ -23,7 +23,8 @@
 </div>
 <p>
 <div>
-<%= image_tag 'twitter.jpg' %> indicates discussion size | <%= image_tag 'heart.jpg' %> indicates level of overlap<br>
+<%= image_tag 'twitter.jpg' %> indicates discussion size<br>
+<%= image_tag 'heart.jpg' %> indicates level of overlap<br>
 </div>
 <p>
 <h3>Part of larger conversations about:</h3> 

@@ -66,9 +66,14 @@ before_save :fix_numtweets
      map_a.flatten!.delete_if{|tag| tag == self} unless map_a.count == 0
      hash_matrix = Array.new
      map_a.uniq.each do |tag|
-         hash_matrix << [tag.name, map_a.count(tag), tag.numtweets, tag]
+     if tag.numtweets > numtweets
+        intersect = (map_a.count(tag)*100)/numtweets
+     else
+        intersect = (map_a.count(tag)*100)/tag.numtweets
      end
-     hash_matrix.sort_by{|hash| hash[1]}.reverse
+         hash_matrix << [tag.name, map_a.count(tag), tag.numtweets, tag, intersect]
+     end
+     hash_matrix.sort_by{|hash| hash[4]}.reverse
    end     
 
 #Trim this for the wordcloud. I'm keeping this seperate in case we want the full array at some point.
