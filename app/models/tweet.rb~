@@ -13,7 +13,6 @@ validates :user, :presence => true
 
 validates :timestamp, :presence => true 
 
-before_save :derive_hashtags
 
  def derive_hashtags
    self.text.split(/[.,!"?'&\s]/).each do |word|

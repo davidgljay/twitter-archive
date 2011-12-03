@@ -1,0 +1,33 @@
+<%= render '/hashtags/form' %>
+<table class = 'hashtag round'>
+
+<% @hashtags.each do |hash| %>
+<tr height = "30px"></tr>
+<tr>
+  <td class = 'hashname'>
+    <h3><%= link_to hash.name, hash %></h3>
+  </td>
+  <td class = 'numtweets'>
+    <%= hash.numtweets %> Tweets This Month
+  </td>
+  <tr class = "round related">
+  <td>
+    <em>Part of larger discussions about:</em> <br>
+    <strong>
+    <% @related_big[hash].each do |related| %>
+       <%= link_to related[0], related[3] %>
+    <% end %>
+    </strong>
+  </td>
+  <td >
+    <em>Linked to smaller discussions about:</em> <br>
+    <strong>
+    <% @related_small[hash].each do |related| %>
+       <%= link_to related[0], related[3] %>
+    <% end %>
+    </strong>
+  </td>
+</tr>
+<% end %>
+</table>
+

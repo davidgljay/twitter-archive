@@ -1,6 +1,9 @@
 <div class="section">
 <table>
   <tr>
+  <td><h3>Click on a hashtag to get started!</h3></td>
+  </tr>
+  <tr>
     <th>Name</th>
     <th>Numtweets</th>
     <th>Archive</th>
