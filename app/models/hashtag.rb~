@@ -13,6 +13,7 @@ has_many :relateds, :foreign_key => "hashtag_id",
 
 has_many :related_hashtags, :through=> :relateds, 
                             :source => :related
+
 has_many :reverse_relateds, :foreign_key =>"related_id",
                             :dependent => :destroy
 
@@ -71,6 +72,7 @@ before_save :fix_numtweets
        tag.delay.get_tweets
     end
     delay.update_all_numtweets
+    (@synclist.count + 1).to_s + " jobs queued, taking approx " + (@synclist.count * 5/60) + "minutes."
   end
 
 

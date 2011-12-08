@@ -72,6 +72,7 @@ before_save :fix_numtweets
        tag.delay.get_tweets
     end
     delay.update_all_numtweets
+    (@synclist.count + 1).to_s + " jobs queued, taking approx " + (@synclist.count * 5/60) + "minutes."
   end
 
 

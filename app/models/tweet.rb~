@@ -29,6 +29,10 @@ validates :timestamp, :presence => true
          self.hashtags << hash unless self.hashtags.include?(hash)
       end
     end
+    Hashtag.where(:phrase => true).each do |phrase|
+      if self.text.include?(phrase.name)
+        self.hashtags << phrase unless self.hashtags.include?(phrase)
+      end
     self.hashtags
   end
 
