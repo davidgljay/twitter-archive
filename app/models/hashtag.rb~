@@ -8,6 +8,13 @@ has_many :links, :foreign_key => "hashtag_id",
                            :dependent => :destroy
 has_many :tweets, :through => :links, :source => :tweet
 
+has_many :relateds, :foreign_key => "hashtag_id",
+                            :dependent => :destroy
+
+has_many :related_hashtags, :through=> :relateds, 
+                            :source => :related
+has_many :reverse_relateds, :foreign_key =>"related_id",
+                            :dependent => :destroy
 
 validates :name, :presence => true,
                       :uniqueness => true
@@ -26,52 +33,68 @@ before_save :fix_numtweets
      if Tweet.find_by_t_id(tweet.id.to_s).nil?
        t = Tweet.new(:t_id => tweet.id.to_s, :text => tweet.text, :user => tweet.from_user, :timestamp => tweet.created_at)
        t.save
+       note_relateds(t.derive_hashtags)
      end
    end
    self.update_numtweets
   end
 
-
-
-  def sync
-    @synclist = Hashtag.all.delete_if{|tag| tag.archive == false}
-    secondaries = Array.new
-    @synclist.each do |tag|
-       tag.tweets.each do |tweet|
-         secondaries << tweet.hashtags
-       end
-    end
-    @synclist << secondaries
-    @synclist.flatten!.uniq!.each do |tag|
-       tag.delay.get_tweets
-    end
-  end
+  # Take a list of related hashtags and note them in the database
+  def note_relateds(hashes)
+    hashes.each do |hash|
+      if !related_hashtags.include?(hash) && self != hash
+        r = relateds.create(:related_id => hash.id, :intersection => 1)
+      elsif related_hashtags.include?(hash) && self != hash
+        r = relateds.where(:related_id => hash.id).first
+        r.intersection += 1
+        r.save
+      end
+     end
+   end
 
   def update_numtweets
      self.numtweets = self.tweets.all.delete_if{|t| t.created_at < Time.now - 1.month}.count
      self.save
   end
 
+
+##Global functions, keeping them in Hashtag
+
+  def sync
+    @synclist = Hashtag.where(:archive => true)
+    secondaries = Array.new
+    @synclist.each do |tag|
+      secondaries << tag.get_related_hashtags.first(100).map{|h| h[3]}
+    end
+    @synclist << secondaries
+    @synclist.flatten.uniq.each do |tag|
+       tag.delay.get_tweets
+    end
+    delay.update_all_numtweets
+  end
+
+
   def update_all_numtweets
     Hashtag.all.each do |h|
      h.numtweets = h.tweets.all.delete_if{|t| t.created_at < Time.now - 1.month}.count
      h.save
+     if h.numtweets == 0
+        h.destroy
+     end
     end
    end
 
 
 # Create an array of related hashtags.
    def get_related_hashtags
-     map_a = self.tweets.map{|tweet| tweet.hashtags.map{|hash| hash}}
-     map_a.flatten!.delete_if{|tag| tag == self} unless map_a.count == 0
-     hash_matrix = Array.new
-     map_a.uniq.each do |tag|
-     if tag.numtweets > numtweets
-        intersect = (map_a.count(tag)*100)/numtweets
-     else
-        intersect = (map_a.count(tag)*100)/tag.numtweets
-     end
-         hash_matrix << [tag.name, map_a.count(tag), tag.numtweets, tag, intersect]
+     hash_matrix = []
+     relateds.each do |r|
+      if r.related.numtweets > numtweets
+        intersect = (r.intersection*100)/numtweets
+      else
+        intersect = (r.intersection*100)/r.related.numtweets
+      end
+      hash_matrix << [r.related.name, r.intersection, r.related.numtweets, r.related, intersect]
      end
      hash_matrix.sort_by{|hash| hash[4]}.reverse
    end     
@@ -86,11 +109,11 @@ before_save :fix_numtweets
    end
 
    def bigger_hashes
-      get_related_hashtags.delete_if{|hash| hash[2] < numtweets}
+      get_related_hashtags.delete_if{|hash| hash[2] < numtweets || hash[2] < 10}
    end
 
    def smaller_hashes
-      get_related_hashtags.delete_if{|hash| hash[2] > numtweets}
+      get_related_hashtags.delete_if{|hash| hash[2] > numtweets || hash[2] < 10}
    end
 
 private

@@ -13,7 +13,7 @@ validates :user, :presence => true
 
 validates :timestamp, :presence => true 
 
-before_save :derive_hashtags
+## before_save :derive_hashtags
 
  def derive_hashtags
    self.text.split(/[.,!"?'&\s]/).each do |word|
@@ -22,12 +22,30 @@ before_save :derive_hashtags
       reg = /#/
       if word.match(reg) != nil
          hash = Hashtag.find_or_create_by_name(word)
-         if hash.numtweets.nil?
+         if hash.numtweets.nil? || hash.numtweets == 0
             hash.numtweets = 1
             hash.save
          end
          self.hashtags << hash unless self.hashtags.include?(hash)
       end
     end
+    self.hashtags
+  end
+
+  def get_hashtags
+    hashes = []
+    self.text.split(/[.,!"?'&\s]/).each do |word|
+      word.downcase!
+      reg = /#/
+      if word.match(reg) != nil
+         hash = Hashtag.find_or_create_by_name(word)
+         if hash.numtweets.nil?
+            hash.numtweets = 1
+            hash.save
+         end
+         hashes << hash
+      end
+     end
+     hashes
   end
 end

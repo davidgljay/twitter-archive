@@ -32,7 +32,11 @@
  <tr height="10"></tr>
  <tr>
   <td>
+    <% if @hashtag.archive? || big[3].archive? %>
     <strong><%= link_to big[0], big[3] %></strong>
+    <% else %>
+    <strong><%= big[0] %></strong>
+    <% end %>
   </td>
   <td>
     <%= (image_tag 'twitter.jpg') * (big[2]/100) %><br>
@@ -48,7 +52,11 @@
  <tr height="10"></tr>
  <tr>
   <td>
+    <% if @hashtag.archive? || small[3].archive? %>
     <strong><%= link_to small[0], small[3] %></strong>
+    <% else %>
+    <strong><%= small[0]%></strong>
+    <% end %>
   </td>
   <td>
     <%= (image_tag 'twitter.jpg') * (small[2]/100) %><br>

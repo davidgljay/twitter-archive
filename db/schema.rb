@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202205908) do
+ActiveRecord::Schema.define(:version => 20111206233841) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -45,6 +45,14 @@ ActiveRecord::Schema.define(:version => 20111202205908) do
   add_index "links", ["hashtag_id"], :name => "index_links_on_hashtag_id"
   add_index "links", ["tweet_id", "hashtag_id"], :name => "index_links_on_tweet_id_and_hashtag_id", :unique => true
   add_index "links", ["tweet_id"], :name => "index_links_on_tweet_id"
+
+  create_table "relateds", :force => true do |t|
+    t.integer "hashtag_id"
+    t.integer "related_id"
+    t.integer "intersection"
+  end
+
+  add_index "relateds", ["hashtag_id"], :name => "index_relateds_on_hashtag_id"
 
   create_table "tweets", :force => true do |t|
     t.string   "t_id"
