@@ -39,8 +39,8 @@
     <% end %>
   </td>
   <td>
-    <%= (image_tag 'twitter.jpg') * (big[2]/100) %><br>
-    <%= (image_tag 'heart.jpg') * (big[4]) %>
+    Size: <%= big[2].to_s %><%= (image_tag 'twitter.jpg') * (big[2]/100) %><br>
+    Overlap: <%= big[4].to_s %>% <%= (image_tag 'heart.jpg') * (big[4]) %>
   </td>
   </tr>
 <% end %>
@@ -59,8 +59,8 @@
     <% end %>
   </td>
   <td>
-    <%= (image_tag 'twitter.jpg') * (small[2]/100) %><br>
-    <%= (image_tag 'heart.jpg') * (small[4]) %>
+    Size: <%= small[2].to_s %><%= (image_tag 'twitter.jpg') * (small[2]/100) %><br>
+    Overlap: <%= small[4].to_s %>% <%= (image_tag 'heart.jpg') * (small[4]) %>
   </td>
   </tr>
 <% end %>

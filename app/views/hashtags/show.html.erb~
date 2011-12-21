@@ -32,15 +32,15 @@
  <tr height="10"></tr>
  <tr>
   <td>
-    <% if @hashtag.archive? %>
+    <% if @hashtag.archive? || big[3].archive? %>
     <strong><%= link_to big[0], big[3] %></strong>
     <% else %>
     <strong><%= big[0] %></strong>
     <% end %>
   </td>
   <td>
-    <%= (image_tag 'twitter.jpg') * (big[2]/100) %><br>
-    <%= (image_tag 'heart.jpg') * (big[4]) %>
+    Size: <%= big[2].to_s %><%= (image_tag 'twitter.jpg') * (big[2]/100) %><br>
+    Overlap: <%= big[4].to_s %>% <%= (image_tag 'heart.jpg') * (big[4]) %>
   </td>
   </tr>
 <% end %>
@@ -52,15 +52,15 @@
  <tr height="10"></tr>
  <tr>
   <td>
-    <% if @hashtag.archive? %>
+    <% if @hashtag.archive? || small[3].archive? %>
     <strong><%= link_to small[0], small[3] %></strong>
     <% else %>
     <strong><%= small[0]%></strong>
     <% end %>
   </td>
   <td>
-    <%= (image_tag 'twitter.jpg') * (small[2]/100) %><br>
-    <%= (image_tag 'heart.jpg') * (small[4]) %>
+    Size: <%= small[2].to_s %><%= (image_tag 'twitter.jpg') * (small[2]/100) %><br>
+    Overlap: <%= small[4].to_s %>% <%= (image_tag 'heart.jpg') * (small[4]) %>
   </td>
   </tr>
 <% end %>
