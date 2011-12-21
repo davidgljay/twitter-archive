@@ -72,7 +72,7 @@ before_save :fix_numtweets
        tag.delay.get_tweets
     end
     delay.update_all_numtweets
-    (@synclist.count + 1).to_s + " jobs queued, taking approx " + (@synclist.count * 5/60).to_s + " minutes."
+    (@synclist.flatten.uniq.count + 1).to_s + " jobs queued, taking approx " + (@synclist.flatten.uniq.count * 5/60).to_s + " minutes."
   end
 
 
@@ -92,9 +92,9 @@ before_save :fix_numtweets
      hash_matrix = []
      relateds.each do |r|
       if r.related.numtweets > numtweets
-        intersect = (r.intersection*100)/numtweets
+        intersect = numtweets == 0 ? 0 : (r.intersection*100)/numtweets
       else
-        intersect = (r.intersection*100)/r.related.numtweets
+        intersect = r.related.numtweets == 0 ? 0 :(r.intersection*100)/r.related.numtweets
       end
       hash_matrix << [r.related.name, r.intersection, r.related.numtweets, r.related, intersect]
      end
