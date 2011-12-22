@@ -12,6 +12,8 @@ gem 'twitter'
 
 gem 'delayed_job'
 
+gem 'fastercsv'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

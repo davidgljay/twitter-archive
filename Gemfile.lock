@@ -43,6 +43,7 @@ GEM
       rack (>= 1.1.0, < 2)
     faraday_middleware (0.6.5)
       faraday (~> 0.6.0)
+    fastercsv (1.5.4)
     hashie (1.0.0)
     i18n (0.5.0)
     mail (2.2.19)
@@ -93,6 +94,7 @@ PLATFORMS
 
 DEPENDENCIES
   delayed_job
+  fastercsv
   rails (= 3.0.7)
   rake (= 0.8.7)
   sqlite3

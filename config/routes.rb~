@@ -2,10 +2,11 @@ TwitterArchive::Application.routes.draw do
   resources :hashtags
   match '/sync',    :to => 'hashtags#sync'
   match '/hashtags',:to => 'hashtags#index'  
+  
 
   resources :tweets
 
-root :to => 'hashtags#index'
+root :to => 'hashtags#tracking'
   match '/contact',  :to => 'pages#contact'
   match '/about',    :to => 'pages#about'
   match '/help',     :to => 'pages#help'

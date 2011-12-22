@@ -3,6 +3,7 @@
   <tr>
   <td>
   <h1><%= @hashtag.name %></h1>
+  <%= link_to 'Export CSV', 'hashtags/' + @hashtag.id.to_s + '/export_related' %>
   </td>
   <td>
   <b>Archived tweets:</b>
@@ -22,6 +23,9 @@
 </table>
 </div>
 <p>
+<div class=googlechart>
+<img src="http://chart.googleapis.com/chart?cht=s&chs=600x400&&chxt=x,y&chxl=1:|Size|0:|Overlap&chxp=1,50|0,50&chxr=1,0,500,10&chd=t:<% @related_hashtags.first(15).each do |hash|%><%= hash[1].to_s%><%= @related_hashtags.first(15).last != hash ? ',':nil %><% end %>|<% @related_hashtags.first(15).each do |hash|%><%= hash[2].to_s%><%= @related_hashtags.first(15).last != hash ? ',':nil %><% end %>&chm=tBlank,000000,0,1,1|<% 15.times do |i|%>t<%= @related_hashtags[i][0].delete "#"%>,000000,1,<%=i.to_s%>,11<%= i != 14 ? '|':nil%><%end%>">
+</div>
 <div>
 <%= image_tag 'twitter.jpg' %> indicates discussion size | <%= image_tag 'heart.jpg' %> indicates level of overlap<br>
 </div>

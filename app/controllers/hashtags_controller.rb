@@ -1,3 +1,5 @@
+require 'fastercsv'
+
 class HashtagsController < ApplicationController
   # GET /hashtags
   # GET /hashtags.xml
@@ -31,7 +33,7 @@ class HashtagsController < ApplicationController
   # GET /hashtags/1.xml
   def show
     @hashtag = Hashtag.find(params[:id])
-    @related_hashtags = @hashtag.related_hashtag_cloud
+    @related_hashtags = @hashtag.get_related_hashtags
     if @hashtag.tweets.count > 20
        @tweets = @hashtag.tweets.reverse.drop(@hashtag.tweets.count - 20).reverse!
        else
@@ -104,25 +106,22 @@ class HashtagsController < ApplicationController
   end
 
 # require 'rubygems' if using this outside of Rails
-#require 'fastercsv'
 
-#def dump_csv
-#  @users = User.find(:all, :order => "lastname ASC")
-#  @outfile = "members_" + Time.now.strftime("%m-%d-%Y") + ".csv"
-  
-#  csv_data = FasterCSV.generate do |csv|
-#    csv << ["titles"    ]
-#    @users.each do |user|
-#      csv << [ data      ]
-#    end
-#  end
+def export_related
+    @hashtag = Hashtag.find(params[:id])
+    csv_data = FasterCSV.generate do |csv|
+    csv << ["hashtag", "numtweets", "overlapping tweets", "overlapping %"]
+    @hashtag.get_related_hashtags.each do |hash|
+      csv << [hash[0], hash[2], hash[1], hash[4] ]
+    end
+  end
 
-#  send_data csv_data,
-#    :type => 'text/csv; charset=iso-8859-1; header=present',
-#    :disposition => "attachment; filename=#{@outfile}"
+  send_data csv_data,
+    :type => 'text/csv; charset=iso-8859-1; header=present',
+    :disposition => "attachment; filename=#{@hashtag.name + '_related.csv'}"
 
-#  flash[:notice] = "Export complete!"
-#end
+  flash[:notice] = "Export complete!"
+end
 
               
 
