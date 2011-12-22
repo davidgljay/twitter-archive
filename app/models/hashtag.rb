@@ -91,11 +91,11 @@ before_save :fix_numtweets
    def get_related_hashtags
      hash_matrix = []
      relateds.each do |r|
-      if r.related.numtweets > numtweets
+      #if r.related.numtweets > numtweets
         intersect = numtweets == 0 ? 0 : (r.intersection*100)/numtweets
-      else
-        intersect = r.related.numtweets == 0 ? 0 :(r.intersection*100)/r.related.numtweets
-      end
+      #else
+      #  intersect = r.related.numtweets == 0 ? 0 :(r.intersection*100)/r.related.numtweets
+      #end
       hash_matrix << [r.related.name, r.intersection, r.related.numtweets, r.related, intersect]
      end
      hash_matrix.sort_by{|hash| hash[4]}.reverse

@@ -103,6 +103,27 @@ class HashtagsController < ApplicationController
     end
   end
 
+# require 'rubygems' if using this outside of Rails
+#require 'fastercsv'
+
+#def dump_csv
+#  @users = User.find(:all, :order => "lastname ASC")
+#  @outfile = "members_" + Time.now.strftime("%m-%d-%Y") + ".csv"
+  
+#  csv_data = FasterCSV.generate do |csv|
+#    csv << ["titles"    ]
+#    @users.each do |user|
+#      csv << [ data      ]
+#    end
+#  end
+
+#  send_data csv_data,
+#    :type => 'text/csv; charset=iso-8859-1; header=present',
+#    :disposition => "attachment; filename=#{@outfile}"
+
+#  flash[:notice] = "Export complete!"
+#end
+
               
 
 end
