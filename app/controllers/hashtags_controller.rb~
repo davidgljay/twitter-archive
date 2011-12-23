@@ -33,7 +33,7 @@ class HashtagsController < ApplicationController
   # GET /hashtags/1.xml
   def show
     @hashtag = Hashtag.find(params[:id])
-    @related_hashtags = @hashtag.related_hashtag_cloud
+    @related_hashtags = @hashtag.get_related_hashtags
     if @hashtag.tweets.count > 20
        @tweets = @hashtag.tweets.reverse.drop(@hashtag.tweets.count - 20).reverse!
        else

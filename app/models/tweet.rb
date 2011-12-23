@@ -16,7 +16,7 @@ validates :timestamp, :presence => true
 ## before_save :derive_hashtags
 
  def derive_hashtags
-   self.text.split(/[.,!"?'&\s]/).each do |word|
+   self.text.split(/[\.,!"\?'&-:;\s]/).each do |word|
    #If the word starts with '#'
       word.downcase!
       reg = /#/
