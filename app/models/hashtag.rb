@@ -125,7 +125,7 @@ before_save :fix_numtweets
 
 #Create a graph with google, see http://code.google.com/apis/chart/image/docs/chart_playground.html if you have trouble
 def related_graph
-  charturl = 'http://chart.googleapis.com/chart?cht=s&chs=600x400&&chxt=x,x,y,y&chxl=3:|Size|1:|Overlap&chxp=1,50|3,50&chxs=0N**%'
+  charturl = 'http://chart.googleapis.com/chart?cht=s&chs=600x400&&chxt=x,x,y,y&chxl=3:|Tweets/Month|1:|% Overlap&chxp=1,50|3,50&chxs=0N**%'
   points = self.get_related_hashtags.first(15)
   x_max = points.map{|p| p[1]}.max
   y_max = points.map{|p| p[2]}.push(numtweets).max

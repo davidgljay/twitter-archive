@@ -132,8 +132,8 @@ def related_graph
   range = '&chxr=0,0,' + (x_max*100/numtweets).to_s + '|2,0,' + y_max.to_s
   my_x = '100,'
   my_y = (numtweets*100/y_max).to_s + ','
-  x_vals = points.map{|p| (p[1]*100/x_max).to_s + ','} * ','
-  y_vals = points.map{|p| (p[2]*100/y_max).to_s + ','} * ','
+  x_vals = points.map{|p| p[1]*100/x_max} * ','
+  y_vals = points.map{|p| p[2]*100/y_max} * ','
   labels = '&chm=tBlank,000000,0,1,1|t' + name.delete('#') + '-->,087217,1,0,18|'
   15.times do |i|
     labels << 't'+ points[i][0].delete("#") + ',000000,1,' + (i+1).to_s + ',11|'
