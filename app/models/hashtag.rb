@@ -129,19 +129,22 @@ def related_graph
   points = self.get_related_hashtags.first(25)
   x_max = points.map{|p| p[1]}.max
   y_max = points.map{|p| p[2]}.push(numtweets).max
-  range = '&chxr=0,0,' + (x_max*100/numtweets).to_s + '|2,0,' + y_max.to_s
+  range = '&chds=0,' + Math.log(x_max).to_s + ',0,' + Math.log(y_max).to_s + '&chxr=0,0,' + (x_max*100/numtweets).to_s + '|2,0,' + y_max.to_s
   my_x = '100,'
   my_y = (numtweets*100/y_max).to_s + ','
-  x_vals = points.map{|p| p[1]*100/x_max} * ','
-  y_vals = points.map{|p| p[2]*100/y_max} * ','
-  labels = '&chm=tBlank,000000,0,1,1|t' + name.delete('#') + '-->,087217,1,0,18|'
+ # x_vals = points.map{|p| p[1]*100/x_max} * ','
+ # y_vals = points.map{|p| p[2]*100/y_max} * ','
+  x_vals = points.map{|p| Math.log(p[1])} * ','
+  y_vals = points.map{|p| Math.log(p[2])} * ','
+
+  labels = '&chm=tBlank,000000,0,1,1|' #t' + name.delete('#') + '-->,087217,1,0,18|'
   25.times do |i|
     labels << 't'+ points[i][0].delete("#") + ',000000,1,' + (i+1).to_s + ',11|'
   end
   labels.chomp!('|')
   charturl << range
-  charturl << '&chd=t:' + my_x + x_vals + '|'
-  charturl << my_y + y_vals
+  charturl << '&chd=t:' + x_vals + '|'
+  charturl <<  y_vals
   charturl << labels
 end
 
